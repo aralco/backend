@@ -1,5 +1,7 @@
 package dev.factory.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -21,6 +23,7 @@ public class OrderLine {
     private BigDecimal totalPrice;
     @ManyToOne
     @JoinColumn(name = "sales_order_id", nullable = false)
+    @JsonBackReference
     private SalesOrder salesOrder;
 
     public OrderLine(Product product, Integer quantity, BigDecimal unitPrice, BigDecimal totalPrice, SalesOrder salesOrder) {

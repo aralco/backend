@@ -16,7 +16,7 @@ public class ProductDao {
 
     public void save(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(product);
+        session.saveOrUpdate(product);
     }
 
     public void update(Product product) {

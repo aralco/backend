@@ -15,7 +15,7 @@ public class CustomerDao {
 
     public void save(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(customer);
+        session.saveOrUpdate(customer);
     }
 
     public void update(Customer customer) {

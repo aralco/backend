@@ -15,7 +15,7 @@ public class SalesOrderDao {
 
     public void save(SalesOrder salesOrder) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(salesOrder);
+        session.saveOrUpdate(salesOrder);
     }
 
     public void update(SalesOrder salesOrder) {
@@ -33,6 +33,13 @@ public class SalesOrderDao {
     public List<SalesOrder> findAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from SalesOrder").list();
+    }
+
+    public SalesOrder findByOrderNumber(String orderNumber) {
+        Session session = sessionFactory.getCurrentSession();
+        return (SalesOrder)session.createQuery("from Product where orderNumber = :orderNumber")
+                .setParameter("orderNumber", orderNumber)
+                .uniqueResult();
     }
 
     public void delete(SalesOrder salesOrder)   {

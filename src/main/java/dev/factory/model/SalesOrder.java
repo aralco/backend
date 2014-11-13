@@ -1,5 +1,7 @@
 package dev.factory.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,6 +21,7 @@ public class SalesOrder {
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
     @OneToMany(mappedBy = "salesOrder", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderLine> orderLines;
 
     public SalesOrder(String orderNumber, Customer customer, BigDecimal totalPrice, List<OrderLine> orderLines) {
