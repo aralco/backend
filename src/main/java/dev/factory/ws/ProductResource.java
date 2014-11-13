@@ -1,7 +1,24 @@
 package dev.factory.ws;
 
-/**
- * Created by aralco on 11/12/14.
- */
+import dev.factory.model.Product;
+import dev.factory.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/products",
+        consumes = "application/json",
+        produces = "application/json")
 public class ProductResource {
+    @Autowired
+    private ProductService productService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Product> listProducts() {
+        return productService.getProducts();
+    }
 }
