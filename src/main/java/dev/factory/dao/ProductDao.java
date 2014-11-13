@@ -1,6 +1,7 @@
 package dev.factory.dao;
 
 import dev.factory.model.Product;
+import dev.factory.model.SalesOrder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,11 @@ public class ProductDao {
                 .setParameter("code", code)
                 .uniqueResult();
     }
-    
+
+    public void delete(Product product)   {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(product);
+    }
+
+
 }

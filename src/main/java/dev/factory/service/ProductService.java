@@ -29,4 +29,11 @@ public class ProductService {
         return productDao.findByCode(code);
     }
 
+    @Transactional
+    public String deleteProduct(String code)  {
+        Product product = productDao.findByCode(code);
+        productDao.delete(product);
+        return "Success delete of product";
+    }
+
 }

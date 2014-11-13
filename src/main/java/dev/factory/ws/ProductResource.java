@@ -30,4 +30,11 @@ public class ProductResource {
         return productService.getProduct(code);
     }
 
+    @RequestMapping(value = "{code}", method = RequestMethod.DELETE)
+    public CommonResponse deleteProduct(@PathVariable String code) {
+        String message = productService.deleteProduct(code);
+        return new CommonResponse(message);
+    }
+
+
 }
