@@ -14,6 +14,12 @@ public class ProductService {
     private ProductDao productDao;
 
     @Transactional
+    public Product createProduct(Product product)  {
+        productDao.save(product);
+        return product;
+    }
+
+    @Transactional
     public List<Product> getProducts()  {
         return productDao.findAll();
     }
