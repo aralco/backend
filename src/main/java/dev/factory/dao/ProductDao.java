@@ -47,5 +47,4 @@ public class ProductDao {
         session.delete(product);
     }
 
-
 }

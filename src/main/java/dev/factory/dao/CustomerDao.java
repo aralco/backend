@@ -35,4 +35,17 @@ public class CustomerDao {
         return session.createQuery("from Customer").list();
     }
 
+    public Customer findByCode(String code) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Customer)session.createQuery("from Customer where code = :code")
+                .setParameter("code", code)
+                .uniqueResult();
+    }
+
+    public void delete(Customer customer)   {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(customer);
+    }
+
+
 }
