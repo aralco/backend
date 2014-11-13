@@ -1,7 +1,9 @@
-package dev.factory.ws;
+package dev.factory.rest;
 
 
 import dev.factory.model.SalesOrder;
+import dev.factory.rest.wrapper.CommonResponse;
+import dev.factory.rest.wrapper.CreateSalesOrderRequest;
 import dev.factory.service.SalesOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +20,8 @@ public class SalesOrderResource {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public SalesOrder createSalesOrder(@RequestBody SalesOrder salesorders) {
-        return salesOrderService.createSalesOrder(salesorders);
+    public SalesOrder createSalesOrder(@RequestBody CreateSalesOrderRequest salesOrderRequest) {
+        return salesOrderService.createSalesOrder(salesOrderRequest);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -40,7 +42,7 @@ public class SalesOrderResource {
 
     @RequestMapping(method = RequestMethod.PUT)
     public SalesOrder updateSalesOrder(@RequestBody SalesOrder salesorders) {
-        return salesOrderService.createSalesOrder(salesorders);
+        return salesOrderService.updateSalesOrder(salesorders);
     }
 
 }

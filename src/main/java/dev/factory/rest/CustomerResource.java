@@ -1,6 +1,7 @@
-package dev.factory.ws;
+package dev.factory.rest;
 
 import dev.factory.model.Customer;
+import dev.factory.rest.wrapper.CommonResponse;
 import dev.factory.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

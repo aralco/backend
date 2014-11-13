@@ -1,4 +1,4 @@
-package dev.factory.ws;
+package dev.factory.rest.wrapper;
 
 /**
  * Created by aralco on 11/12/14.
