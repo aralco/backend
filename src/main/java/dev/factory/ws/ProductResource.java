@@ -3,10 +3,7 @@ package dev.factory.ws;
 import dev.factory.model.Product;
 import dev.factory.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,10 @@ public class ProductResource {
     public List<Product> listProducts() {
         return productService.getProducts();
     }
+
+    @RequestMapping(value = "{code}", method = RequestMethod.GET)
+    public Product viewProduct(@PathVariable String code) {
+        return productService.getProduct(code);
+    }
+
 }

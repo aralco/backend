@@ -26,13 +26,19 @@ public class ProductDao {
     public Product findOne(Long productId) {
         Session session = sessionFactory.getCurrentSession();
         return (Product)session.load(Product.class, productId);
-
     }
 
     @SuppressWarnings("unchecked")
     public List<Product> findAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Product").list();
+    }
+
+    public Product findByCode(String code) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Product)session.createQuery("from Product where code = :code")
+                .setParameter("code", code)
+                .uniqueResult();
     }
     
 }
