@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="dev.factory"/>
+    <context:component-scan base-package="com.dev.backend"/>
     <mvc:annotation-driven />
     <mvc:default-servlet-handler />
     <context:annotation-config/>
@@ -33,7 +33,7 @@
     <!--********** SessionFactory **********-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="mysqlDataSource"/>
-        <property name="packagesToScan" value="dev.factory.model" />
+        <property name="packagesToScan" value="com.dev.backend.model" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

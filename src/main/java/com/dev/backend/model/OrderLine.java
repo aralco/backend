@@ -1,4 +1,4 @@
-package dev.factory.model;
+package com.dev.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -12,15 +12,15 @@ public class OrderLine {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_line_id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @Column(name = "unit_price", nullable = false)
     private BigDecimal unitPrice;
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "sales_order_id", nullable = false)
     @JsonBackReference

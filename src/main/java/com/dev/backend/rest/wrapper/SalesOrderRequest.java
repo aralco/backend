@@ -1,19 +1,22 @@
-package dev.factory.rest.wrapper;
+package com.dev.backend.rest.wrapper;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class CreateSalesOrderRequest {
+public class SalesOrderRequest {
     private String orderNumber;
     private BigDecimal totalPrice;
     private String customer;
     private List<OrderLine> orderLines;
 
-    public CreateSalesOrderRequest(String orderNumber, BigDecimal totalPrice, String customer, List<OrderLine> orderLines) {
+    public SalesOrderRequest(String orderNumber, BigDecimal totalPrice, String customer, List<OrderLine> orderLines) {
         this.orderNumber = orderNumber;
         this.totalPrice = totalPrice;
         this.customer = customer;
         this.orderLines = orderLines;
+    }
+
+    public SalesOrderRequest() {
     }
 
     public String getOrderNumber() {
@@ -51,14 +54,17 @@ public class CreateSalesOrderRequest {
     public static class OrderLine   {
         private String product;
         private Integer quantity;
-        private BigDecimal total;
         private BigDecimal price;
+        private BigDecimal total;
 
         public OrderLine(String product, Integer quantity, BigDecimal total, BigDecimal price) {
             this.product = product;
             this.quantity = quantity;
-            this.total = total;
             this.price = price;
+            this.total = total;
+        }
+
+        public OrderLine() {
         }
 
         public String getProduct() {
@@ -77,6 +83,14 @@ public class CreateSalesOrderRequest {
             this.quantity = quantity;
         }
 
+        public BigDecimal getPrice() {
+            return price;
+        }
+
+        public void setPrice(BigDecimal price) {
+            this.price = price;
+        }
+
         public BigDecimal getTotal() {
             return total;
         }
@@ -85,12 +99,5 @@ public class CreateSalesOrderRequest {
             this.total = total;
         }
 
-        public BigDecimal getPrice() {
-            return price;
-        }
-
-        public void setPrice(BigDecimal price) {
-            this.price = price;
-        }
     }
 }

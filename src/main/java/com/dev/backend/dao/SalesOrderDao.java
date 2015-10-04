@@ -1,6 +1,6 @@
-package dev.factory.dao;
+package com.dev.backend.dao;
 
-import dev.factory.model.SalesOrder;
+import com.dev.backend.model.SalesOrder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class SalesOrderDao {
 
     public SalesOrder findByOrderNumber(String orderNumber) {
         Session session = sessionFactory.getCurrentSession();
-        return (SalesOrder)session.createQuery("from Product where orderNumber = :orderNumber")
+        return (SalesOrder)session.createQuery("from SalesOrder where orderNumber = :orderNumber")
                 .setParameter("orderNumber", orderNumber)
                 .uniqueResult();
     }

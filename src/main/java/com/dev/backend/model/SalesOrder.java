@@ -1,4 +1,4 @@
-package dev.factory.model;
+package com.dev.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

@@ -1,7 +1,7 @@
-package dev.factory.service;
+package com.dev.backend.service;
 
-import dev.factory.dao.CustomerDao;
-import dev.factory.model.Customer;
+import com.dev.backend.dao.CustomerDao;
+import com.dev.backend.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,7 @@ public class CustomerService {
     public String deleteCustomer(String code)  {
         Customer customer = customerDao.findByCode(code);
         customerDao.delete(customer);
-        return "Success delete of customer";
+        return "Customer successfully deleted.";
     }
 
 }

@@ -1,8 +1,5 @@
-package dev.factory.rest.wrapper;
+package com.dev.backend.rest.wrapper;
 
-/**
- * Created by aralco on 11/12/14.
- */
 public class CommonResponse {
     private String message;
 

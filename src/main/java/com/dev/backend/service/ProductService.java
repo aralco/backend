@@ -1,7 +1,7 @@
-package dev.factory.service;
+package com.dev.backend.service;
 
-import dev.factory.dao.ProductDao;
-import dev.factory.model.Product;
+import com.dev.backend.model.Product;
+import com.dev.backend.dao.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,7 @@ public class ProductService {
     public String deleteProduct(String code)  {
         Product product = productDao.findByCode(code);
         productDao.delete(product);
-        return "Success delete of product";
+        return "Product successfully deleted.";
     }
 
 }

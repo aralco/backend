@@ -1,6 +1,6 @@
-package dev.factory.dao;
+package com.dev.backend.dao;
 
-import dev.factory.model.Customer;
+import com.dev.backend.model.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
