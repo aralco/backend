@@ -21,6 +21,8 @@ import java.util.List;
 @Service
 public class SalesOrderService {
 
+    private static final String SALES_ORDER_SUCCESSFULLY_DELETED = "Sales order successfully deleted.";
+
     @Autowired
     private SalesOrderDao salesOrderDao;
     @Autowired
@@ -28,10 +30,18 @@ public class SalesOrderService {
     @Autowired
     private ProductDao productDao;
 
+    /**
+     * Creates a new SalesOrder or updates if there was one previously created.
+     *
+     * @param salesOrderRequest SalesOrderRequest provided by associated resource.
+     * @return The created or updated SalesOrder.
+     * @throws InsufficientCreditException when Total price of sales order is less than or equal (Customer Credit Limit - Customer Current Credit).
+     * @throws InsufficientStockException when Quantities that have been requested are less than or equal current inventory balance.
+     */
     @Transactional
-    public SalesOrder createSalesOrder(SalesOrderRequest salesOrderRequest)  throws InsufficientCreditException, InsufficientStockException {
+    public SalesOrder saveSalesOrder(SalesOrderRequest salesOrderRequest)  throws InsufficientCreditException, InsufficientStockException {
         Customer customer = customerDao.findByCode(salesOrderRequest.getCustomer());
-        validateCustomerCredit(salesOrderRequest, customer);
+        validateCustomerCredit(salesOrderRequest.getTotalPrice(), customer);
         //Customer credit is updated
         customer.setCurrentCredit(customer.getCurrentCredit().add(salesOrderRequest.getTotalPrice()));
 
@@ -43,57 +53,76 @@ public class SalesOrderService {
 
         for(SalesOrderRequest.OrderLine reqOrderLine : salesOrderRequest.getOrderLines()) {
             Product product = productDao.findByCode(reqOrderLine.getProduct());
-            validateProductStock(reqOrderLine, product);
+            validateProductStock(reqOrderLine.getQuantity(), product);
             //Stock Quantity is updated
             product.setQuantity(product.getQuantity()-reqOrderLine.getQuantity());
 
-            OrderLine orderLine = new OrderLine();
-            orderLine.setProduct(product);
-            orderLine.setQuantity(reqOrderLine.getQuantity());
-            orderLine.setUnitPrice(reqOrderLine.getPrice());
-            orderLine.setTotalPrice(reqOrderLine.getTotal());
-            orderLine.setSalesOrder(salesOrder);
+            OrderLine orderLine = new OrderLine(
+            product, reqOrderLine.getQuantity(), reqOrderLine.getPrice(), reqOrderLine.getTotal(), salesOrder);
             orderLines.add(orderLine);
         }
         salesOrder.setOrderLines(orderLines);
-        salesOrderDao.save(salesOrder);
+        salesOrderDao.create(salesOrder);
         return salesOrder;
     }
 
-    private void validateProductStock(SalesOrderRequest.OrderLine reqOrderLine, Product product) {
-        if(reqOrderLine.getQuantity()>product.getQuantity())    {
+    /**
+     * Validates that Quantities that have been requested are less than or equal current inventory balance.
+     *
+     * @param quantity Integer provided by SalesOrder request.
+     * @param product Product to ask for stock quantity.
+     */
+    private void validateProductStock(Integer quantity, Product product) {
+        if(quantity>product.getQuantity())    {
             throw new InsufficientStockException("Available stock is insufficient to process this sale order.");
         }
     }
 
-    private void validateCustomerCredit(SalesOrderRequest salesOrderRequest, Customer customer) {
+    /**
+     * Validates if Total price of sales order is less than or equal (Customer Credit Limit - Customer Current Credit).
+     *
+     * @param totalPrice BigDecimal provided by SalesOrder request.
+     * @param customer Customer to ask for credit.
+     */
+    private void validateCustomerCredit(BigDecimal totalPrice, Customer customer) {
         BigDecimal availableCredit = customer.getCreditLimit().subtract(customer.getCurrentCredit());
-        if(salesOrderRequest.getTotalPrice().compareTo(availableCredit)>0)   {
+        if(totalPrice.compareTo(availableCredit)>0)   {
             throw new InsufficientCreditException("Not enough credit for this sales order.");
         }
     }
 
+    /**
+     * Retrieves all SalesOrders.
+     *
+     * @return a List containing all SalesOrders.
+     */
     @Transactional
     public List<SalesOrder> getSalesOrders() {
         return salesOrderDao.findAll();
     }
 
+    /**
+     * Retrieves a specific SalesOrder with orderNumber equals to the one provided.
+     *
+     * @param orderNumber String to search for.
+     * @return a SalesOrder matching provided orderNumber.
+     */
     @Transactional
     public SalesOrder getSalesOrder(String orderNumber) {
         return salesOrderDao.findByOrderNumber(orderNumber);
     }
 
+    /**
+     * Deletes a specific SalesOrder with orderNumber equals to the one provided.
+     *
+     * @param orderNumber String to search for.
+     * @return a String message.
+     */
     @Transactional
     public String deleteSalesOrder(String orderNumber) {
         SalesOrder salesOrder = salesOrderDao.findByOrderNumber(orderNumber);
         salesOrderDao.delete(salesOrder);
-        return "Sales order successfully deleted.";
-    }
-
-    @Transactional
-    public SalesOrder updateSalesOrder(SalesOrder salesOrder) {
-        salesOrderDao.update(salesOrder);
-        return salesOrder;
+        return SALES_ORDER_SUCCESSFULLY_DELETED;
     }
 
 }

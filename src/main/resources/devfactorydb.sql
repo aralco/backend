@@ -19,7 +19,7 @@ CREATE TABLE `CUSTOMER` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phone1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phone2` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -34,7 +34,7 @@ CREATE TABLE `ORDER_LINE` (
   `unit_price` decimal(19,2) NOT NULL,
   `product_id` bigint(20) NOT NULL,
   `sales_order_id` bigint(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE `PRODUCT` (
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(19,2) NOT NULL,
   `quantity` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `SALES_ORDER` (
   `order_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `total_price` decimal(19,2) NOT NULL,
   `customer_id` bigint(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Indexes for dumped tables

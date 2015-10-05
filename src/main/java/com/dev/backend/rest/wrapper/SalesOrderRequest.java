@@ -1,11 +1,19 @@
 package com.dev.backend.rest.wrapper;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class SalesOrderRequest {
+    @NotEmpty
     private String orderNumber;
+    @NotNull
+    @Min(0)
     private BigDecimal totalPrice;
+    @NotEmpty
     private String customer;
     private List<OrderLine> orderLines;
 
@@ -52,9 +60,16 @@ public class SalesOrderRequest {
     }
 
     public static class OrderLine   {
+        @NotEmpty
         private String product;
+        @NotNull
+        @Min(0)
         private Integer quantity;
+        @NotNull
+        @Min(0)
         private BigDecimal price;
+        @NotNull
+        @Min(0)
         private BigDecimal total;
 
         public OrderLine(String product, Integer quantity, BigDecimal total, BigDecimal price) {

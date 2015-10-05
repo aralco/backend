@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,8 @@ public class CustomerResource {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.OK);
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+        return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)

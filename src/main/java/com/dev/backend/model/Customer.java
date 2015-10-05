@@ -1,6 +1,10 @@
 package com.dev.backend.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -10,18 +14,27 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id")
     private Long id;
+    @NotEmpty
     @Column(name = "code", nullable = false, unique = true)
     private String code;
+    @NotEmpty
     @Column(name = "name", nullable = false)
     private String name;
+    @NotEmpty
     @Column(name = "address", nullable = false)
     private String address;
+    @NotEmpty
     @Column(name = "phone1", nullable = false)
     private String phone1;
+    @NotEmpty
     @Column(name = "phone2", nullable = false)
     private String phone2;
+    @NotNull
+    @Min(0)
     @Column(name = "credit_limit", nullable = false)
     private BigDecimal creditLimit;
+    @NotNull
+    @Min(0)
     @Column(name = "current_credit", nullable = false)
     private BigDecimal currentCredit;
 

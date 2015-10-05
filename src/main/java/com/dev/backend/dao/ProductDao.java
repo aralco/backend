@@ -13,7 +13,7 @@ public class ProductDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void save(Product product) {
+    public void create(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(product);
     }
@@ -31,7 +31,7 @@ public class ProductDao {
     @SuppressWarnings("unchecked")
     public List<Product> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Product").list();
+        return (List<Product>)session.createQuery("from Product").list();
     }
 
     public Product findByCode(String code) {

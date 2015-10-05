@@ -13,7 +13,7 @@ public class SalesOrderDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void save(SalesOrder salesOrder) {
+    public void create(SalesOrder salesOrder) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(salesOrder);
     }
@@ -32,7 +32,7 @@ public class SalesOrderDao {
     @SuppressWarnings("unchecked")
     public List<SalesOrder> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from SalesOrder").list();
+        return (List<SalesOrder>)session.createQuery("from SalesOrder").list();
     }
 
     public SalesOrder findByOrderNumber(String orderNumber) {

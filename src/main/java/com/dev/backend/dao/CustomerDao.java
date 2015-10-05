@@ -13,7 +13,7 @@ public class CustomerDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void save(Customer customer) {
+    public void create(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(customer);
     }
@@ -32,7 +32,7 @@ public class CustomerDao {
     @SuppressWarnings("unchecked")
     public List<Customer> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Customer").list();
+        return (List<Customer>)session.createQuery("from Customer").list();
     }
 
     public Customer findByCode(String code) {

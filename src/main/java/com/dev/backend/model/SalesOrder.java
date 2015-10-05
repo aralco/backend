@@ -1,8 +1,11 @@
 package com.dev.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,11 +16,14 @@ public class SalesOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="sales_order_id")
     private Long id;
+    @NotEmpty
     @Column(name = "order_number", nullable = false)
     private String orderNumber;
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+    @NotNull
+    @Min(0)
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
     @OneToMany(mappedBy = "salesOrder", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)

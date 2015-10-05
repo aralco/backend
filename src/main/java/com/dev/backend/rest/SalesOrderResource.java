@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,10 +21,9 @@ public class SalesOrderResource {
     @Autowired
     private SalesOrderService salesOrderService;
 
-
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<SalesOrder> createSalesOrder(@RequestBody SalesOrderRequest salesOrderRequest) {
-        return new ResponseEntity<>(salesOrderService.createSalesOrder(salesOrderRequest), HttpStatus.OK);
+    public ResponseEntity<SalesOrder> createSalesOrder(@Valid @RequestBody SalesOrderRequest salesOrderRequest) {
+        return new ResponseEntity<>(salesOrderService.saveSalesOrder(salesOrderRequest), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
