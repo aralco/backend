@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)//500
     @ExceptionHandler(value = Exception.class)
-    public CommonResponse outofStockException(Exception e)    {
+    public CommonResponse unknownException(Exception e)    {
         logger.warn("Error message...{}", e.getMessage());
         return new CommonResponse("Internal Server error");
     }
